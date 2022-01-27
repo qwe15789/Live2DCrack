@@ -4,6 +4,8 @@
 
 ### 如何下载?
 
+[哔哩哔哩](https://www.bilibili.com/video/BV19g411G7yc/)
+
 | 如果你没有`.NET6.0`运行时(不装就一定没有) | 文件比较大 |
 | --- | --- |
 | [方式1(点击下载)](https://github.com/xiao-cao-x/Live2DCrack/releases/latest/download/win-x64-all-release.zip) | github.com(如果你是从镜像站进入的github就点这个) |
