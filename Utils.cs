@@ -21,13 +21,22 @@ namespace Live2DCrack
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string GetLive2DVersion(string path)
+        public static bool GetLive2DVersion(string path, out string version)
         {
-            string txtString = File.ReadAllText(path + "\\ReadMe.txt");
+            try
+            {
+                string txtString = File.ReadAllText(path + "\\ReadMe.txt");
 
-            int versionIndex = txtString.IndexOf("Live2D Cubism Editor Version") + "Live2D Cubism Editor Version".Length;
+                int versionIndex = txtString.IndexOf("Live2D Cubism Editor Version") + "Live2D Cubism Editor Version".Length;
 
-            return txtString.Substring(versionIndex + 1, 6);
+                version = txtString.Substring(versionIndex + 1, 6);
+                return true;
+            }
+            catch (Exception)
+            {
+                version = string.Empty;
+                return false;
+            }
         }
 
         public static bool WriteResource(string path)

@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Live2DCrack"
-        xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:viewmodels="clr-namespace:Live2DCrack.ViewModels"
-               mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Live2DCrack.ViewModels"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        mc:Ignorable="d"
         ActiveGlowColor="HotPink"
         Title="Live2DCrack" Height="400" Width="600">
     <hc:GlowWindow.DataContext>
-        <viewmodels:MainViewModel/>
+        <vm:MainViewModel/>
     </hc:GlowWindow.DataContext>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right">
@@ -30,6 +32,12 @@
                 Style="{StaticResource ButtonPrimary}" 
                 Content="执行"
                 Command="{Binding WriteResourceCommand}"
+                />
+            <Button
+                Margin="20,20,0,0"
+                Style="{StaticResource ButtonPrimary}" 
+                Content="手动选择Live2D安装目录"
+                Command="{Binding OpenFolderSelectoryCommand}"
                 />
             <Button
                 Margin="20,20,0,20"

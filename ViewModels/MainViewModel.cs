@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+
+
 namespace Live2DCrack.ViewModels
 {
     internal class MainViewModel : ObservableObject
@@ -32,16 +34,22 @@ namespace Live2DCrack.ViewModels
         }
 
         public ICommand WriteResourceCommand { get; }
+        public ICommand OpenFolderSelectoryCommand { get; }
         public ICommand CopyDownloadUrlCommand { get; }
 
         public MainViewModel()
         {
             WriteResourceCommand = new RelayCommand(WriteResource);
+            OpenFolderSelectoryCommand = new RelayCommand(OpenFolderSelector);
             CopyDownloadUrlCommand = new RelayCommand(CopyDownloadUrl);
             Path = Utils.GetLive2DInstallPath();
             if (string.Empty != Path)
             {
-                Version = Utils.GetLive2DVersion(softwareInfo.Path);
+                if (Utils.GetLive2DVersion(softwareInfo.Path, out string version))
+                {
+                    Version = version;
+                }
+
             }
             else
             {
@@ -55,7 +63,7 @@ namespace Live2DCrack.ViewModels
         {
             if (Directory.Exists(Path))
             {
-                if(Utils.WriteResource(Path + @"\app\lib\rlm1221.jar"))
+                if (Utils.WriteResource(Path + @"\app\lib\rlm1221.jar"))
                 {
                     Growl.Success("成功");
                 }
@@ -68,6 +76,34 @@ namespace Live2DCrack.ViewModels
             {
                 Growl.Error("没有获取到软件安装目录");
             }
+        }
+
+        private void OpenFolderSelector()
+        {
+            using (System.Windows.Forms.FolderBrowserDialog dialog = new())
+            {
+                dialog.Description = "选择Live2D安装目录";
+                dialog.AutoUpgradeEnabled = true;
+                var result = dialog.ShowDialog();
+                if (System.Windows.Forms.DialogResult.OK == result)
+                {
+                    if (Directory.Exists(dialog.SelectedPath))
+                    {
+                        if (Utils.GetLive2DVersion(dialog.SelectedPath, out string version))
+                        {
+                            Path = dialog.SelectedPath;
+                            Version = version;
+                        }
+                        else
+                        {
+                            Growl.Error("未获取到Live2D版本,可能是选择的目录不正确");
+                        }
+
+                    }
+
+                }
+            }
+
         }
 
         public void CopyDownloadUrl()
