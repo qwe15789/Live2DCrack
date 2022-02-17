@@ -2,8 +2,6 @@
 
 ## 免费使用Live2D Pro版本
 
-[哔哩哔哩](https://www.bilibili.com/video/BV19g411G7yc/)
-
 ### 如何下载?
 
 | 如果你没有`.NET6.0`运行时(不装就一定没有) | 文件比较大 |
